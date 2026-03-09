@@ -1,0 +1,80 @@
+﻿@page
+@model HospitalCommunication.Areas.Identity.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        height: 100vh;
+    }
+
+    .auth-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth-card {
+        width: 400px;
+        padding: 40px;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2a5298;
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .btn-auth {
+        background-color: #2a5298;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+        .btn-auth:hover {
+            background-color: #1e3c72;
+        }
+</style>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h3 class="auth-title">Hospital Communication</h3>
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="Input.RememberMe" class="form-check-input" />
+                <label asp-for="Input.RememberMe" class="form-check-label">
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-auth w-100 text-white">
+                Log In
+            </button>
+        </form>
+    </div>
+</div>

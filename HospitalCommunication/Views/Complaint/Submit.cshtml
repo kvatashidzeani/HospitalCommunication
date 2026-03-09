@@ -1,0 +1,45 @@
+﻿
+
+@model HospitalCommunication.Models.Complaint
+
+@{
+    Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+
+    ViewData["Title"] = "საჩივრის გაგზავნა";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">ანონიმური საჩივრის ფორმა</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">თქვენი ვინაობა სრულად დარჩება ანონიმური.</p>
+                    <form asp-action="Submit" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">კატეგორია</label>
+                            <select asp-for="Category" class="form-select">
+                                <option value="">-- აირჩიეთ კატეგორია --</option>
+                                <option value="ეთიკა">ეთიკა</option>
+                                <option value="ჰიგიენური ნორმები">ჰიგიენური ნორმები</option>
+                                <option value="სუბორდინაცია">სუბორდინაცია</option>
+                                <option value="ინვენტარი">ინვენტარი</option>
+                                <option value="ინფრასტრუქტურა">ინფრასტრუქტურა</option>
+                                <option value="სხვა">სხვა</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">თქვენი შეტყობინება</label>
+                            <textarea asp-for="Message" class="form-control" rows="6"
+                                      placeholder="დეტალურად აღწერეთ თქვენი საჩივარი..."></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">ანონიმურად გაგზავნა</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

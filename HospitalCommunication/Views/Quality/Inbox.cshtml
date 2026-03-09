@@ -1,0 +1,66 @@
+﻿@model IEnumerable<HospitalCommunication.Models.Complaint>
+@{
+    ViewData["Title"] = "ხარისხის მართვის დეპარტამენტი - შემოსული საჩივრები";
+}
+<div class="container mt-4">
+    <h3 class="mb-4">📋 შემოსული საჩივრები</h3>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">საჩივრები არ არის.</div>
+    }
+    else
+    {
+        @foreach (var complaint in Model)
+        {
+            <div class="card mb-3 shadow-sm @(complaint.IsReviewed ? "border-success" : "border-warning")">
+                <div class="card-header d-flex justify-content-between">
+                    <span><strong>კატეგორია:</strong> @complaint.Category</span>
+                    <span class="text-muted">@complaint.SubmittedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                    @if (complaint.IsReviewed)
+                    {
+                        <span class="badge bg-success">განხილულია</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">მოლოდინში</span>
+                    }
+                </div>
+                <div class="card-body">
+                    <p><strong>შეტყობინება:</strong></p>
+                    <p>@complaint.Message</p>
+
+                    @if (!complaint.IsReviewed)
+                    {
+                        <form asp-action="Review" method="post">
+                            <input type="hidden" name="id" value="@complaint.Id" />
+                            <div class="mb-2">
+                                <label class="form-label">შიდა შენიშვნა (არასავალდებულო):</label>
+                                <textarea name="notes" class="form-control" rows="2"
+                              placeholder="დაამატეთ შენიშვნა..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm">
+                                ✓ განხილულად მონიშვნა
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        @if (!string.IsNullOrEmpty(complaint.Notes))
+                        {
+                            <p class="text-muted mt-2"><strong>შენიშვნა:</strong> @complaint.Notes</p>
+                        }
+                    }
+
+                    @* Delete button appears for ALL complaints *@
+                    <form asp-action="Delete" method="post" class="mt-2"
+                          onsubmit="return confirm('დარწმუნებული ხართ რომ გსურთ წაშლა?')">
+                        <input type="hidden" name="id" value="@complaint.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            🗑 წაშლა
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+</div>
